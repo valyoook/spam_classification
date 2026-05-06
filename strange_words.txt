@@ -1,0 +1,11 @@
+sale
+discount
+buy
+special
+exclusive
+распродажа
+скидка
+срочно
+срочный
+эксклюзивный
+купить
