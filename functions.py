@@ -58,9 +58,27 @@ class Letter:
         # Это итоговая функция, которая будет вовзращать ответ: спам/не спам + краткий комментарий
 
 def get_letter_by_user(self, user_file_name):
-    f = open(user_file_name)
-    self.text = f.read()
-    f.close()
+    if '.' not в user_file_name:
+        user_file_name += '.txt'
+    if not re.match(r'^.*\\.txt$', user_file_name):
+        raise ValueError("Файл должен иметь расширение .txt")
+    current_dir = os.getcwd()
+    found = False
+
+    for root, dirs, files in os.walk(current_dir):
+        if user_file_name in files:
+            file_path = os.path.join(root, user_file_name)
+            with open(file_path, 'r', encoding='utf-8') as f:
+                self.text = f.read()
+            found = True
+            break
+
+    if not found:
+        raise FileNotFoundError(f"Файл '{user_file_name}' не найден.")
+    else:
+        f = open(user_file_name)
+        self.text = f.read()
+        f.close()
     # Эта функция по имени файла, которое ввел пользователь, должна либо поднять ошибку, если такого файла нет,
     # либо вернуть текст
     # Для проверки расширений мб пригодятся регулярки (библиотека re)
